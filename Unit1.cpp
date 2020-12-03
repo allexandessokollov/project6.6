@@ -107,6 +107,7 @@ void __fastcall TForm1::changeSizeClick(TObject *Sender)
         matrix->RowCount = StrToInt(mValue);
     }
 
+    
     for(int i = 1; i < cCount; i++)
     {
          AnsiString  strN = "n = ";

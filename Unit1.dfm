@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 192
-  Top = 125
+  Left = 955
+  Top = 146
   Width = 826
-  Height = 294
+  Height = 310
   Caption = 'Form1'
   Color = clBtnFace
   Font.Charset = RUSSIAN_CHARSET
@@ -54,6 +54,7 @@ object Form1: TForm1
     Font.Height = -11
     Font.Name = 'Trebuchet MS'
     Font.Style = []
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
     ParentFont = False
     TabOrder = 2
   end

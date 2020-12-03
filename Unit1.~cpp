@@ -83,12 +83,16 @@ void __fastcall TForm1::changeSizeClick(TObject *Sender)
     AnsiString nValue = nSize->Text;
     AnsiString mValue = mSize->Text;
 
+    int cCount, rCount;
+    cCount =  StrToInt(nValue);
+    rCount =  StrToInt(mValue);
+
     if(nValue == "" || mValue == "")
     {
         matrix->ColCount = 0;
         matrix->RowCount = 0;
     }
-    else if (StrToInt(nValue) > maxMatrixSize || StrToInt(mValue) > maxMatrixSize)
+    else if (cCount > maxMatrixSize || rCount > maxMatrixSize)
     {
         ShowMessage("maximum size is 7 x 7");
         nSize->Text = "7";
@@ -103,6 +107,7 @@ void __fastcall TForm1::changeSizeClick(TObject *Sender)
         matrix->RowCount = StrToInt(mValue);
     }
 
+    
     for(int i = 1; i < cCount; i++)
     {
          AnsiString  strN = "n = ";
