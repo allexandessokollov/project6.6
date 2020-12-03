@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 192
   Top = 125
   Width = 826
-  Height = 675
+  Height = 294
   Caption = 'Form1'
   Color = clBtnFace
   Font.Charset = RUSSIAN_CHARSET
@@ -56,5 +56,23 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
     TabOrder = 2
+  end
+  object changeSize: TButton
+    Left = 8
+    Top = 104
+    Width = 153
+    Height = 33
+    Caption = 'Change Size'
+    TabOrder = 3
+    OnClick = changeSizeClick
+  end
+  object fillMatrix: TButton
+    Left = 8
+    Top = 144
+    Width = 153
+    Height = 33
+    Caption = 'Fill matrix'
+    TabOrder = 4
+    OnClick = fillMatrixClick
   end
 end

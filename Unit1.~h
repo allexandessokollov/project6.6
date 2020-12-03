@@ -17,7 +17,12 @@ __published:	// IDE-managed Components
         TLabel *Label1;
         TLabel *Label2;
         TStringGrid *matrix;
-private:	// User declarations
+        TButton *changeSize;
+        TButton *fillMatrix;
+        void __fastcall changeSizeClick(TObject *Sender);
+        void __fastcall fillMatrixClick(TObject *Sender);
+private:
+        bool isStringGridFilled(int colCount, int rowCount);	// User declarations
 public:		// User declarations
         __fastcall TForm1(TComponent* Owner);
 };
