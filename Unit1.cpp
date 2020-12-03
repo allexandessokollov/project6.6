@@ -9,15 +9,15 @@
 #pragma resource "*.dfm"
 TForm1 *Form1;
 
-const int maxMatrixSize = 7;
+const int maxMatrixSize = 8;
 
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
 {
     int cCount, rCount;
-    cCount = StrToInt(nSize->Text);
-    rCount = StrToInt(mSize->Text);
+    cCount = StrToInt(nSize->Text) + 1;
+    rCount = StrToInt(mSize->Text) + 1;
 
     matrix->ColCount = cCount;
     matrix->RowCount = rCount;
@@ -84,8 +84,9 @@ void __fastcall TForm1::changeSizeClick(TObject *Sender)
     AnsiString mValue = mSize->Text;
 
     int cCount, rCount;
-    cCount =  StrToInt(nValue);
-    rCount =  StrToInt(mValue);
+    cCount =  StrToInt(nValue) + 1;
+    rCount =  StrToInt(mValue) + 1;
+
 
     if(nValue == "" || mValue == "")
     {
@@ -95,16 +96,19 @@ void __fastcall TForm1::changeSizeClick(TObject *Sender)
     else if (cCount > maxMatrixSize || rCount > maxMatrixSize)
     {
         ShowMessage("maximum size is 7 x 7");
-        nSize->Text = "7";
-        mSize->Text = "7";
+        nSize->Text = IntToStr(maxMatrixSize - 1);
+        mSize->Text = IntToStr(maxMatrixSize - 1);
+
+        cCount =  maxMatrixSize;
+        rCount =  maxMatrixSize;
 
         matrix->ColCount = StrToInt(maxMatrixSize);
         matrix->RowCount = StrToInt(maxMatrixSize);
     }
     else
     {
-        matrix->ColCount = StrToInt(nValue);
-        matrix->RowCount = StrToInt(mValue);
+        matrix->ColCount = cCount;
+        matrix->RowCount = rCount;
     }
 
     
@@ -135,11 +139,116 @@ void __fastcall TForm1::fillMatrixClick(TObject *Sender)
     {
         for(int j = 1; j < rCount; j++)
         {
-            matrix->Cells[i][j] = random(20) - 10;
+            matrix->Cells[i][j] = random(50) - 20;
         }
     }
 
 
+}
+//---------------------------------------------------------------------------
+
+
+
+
+void __fastcall TForm1::getAnswerClick(TObject *Sender)
+{
+    int rCount, cCount, tmpArrSize, counter = 0;
+    rCount = matrix->RowCount;
+    cCount = matrix->ColCount;
+
+    if (!isStringGridFilled(cCount, rCount))
+    {
+        ShowMessage("fill matrix");
+
+        int rCount, cCount;
+        rCount = matrix->RowCount;
+        cCount = matrix->ColCount;
+
+        for(int i = 1; i < cCount; i++)
+        {
+           for(int j = 1; j < rCount; j++)
+            {
+                matrix->Cells[i][j] = 0;
+            }
+    }
+    }
+
+    tmpArrSize = (rCount - 1) * (cCount - 1);
+
+    int *tmpArr = new int[tmpArrSize];
+
+    int **arr = new int*[cCount];
+    for(int i = 0; i < cCount; i++)
+    {
+        arr[i] = new int[rCount];
+    }
+
+    for(int i = 1; i < cCount; i++)
+    {
+        for(int j = 1; j < rCount; j++)
+        {
+            int temp = StrToInt(matrix->Cells[i][j]);
+            arr[i][j] = temp;
+            tmpArr[counter] = -999;
+            counter++;
+        }
+    }
+
+    counter = 0;
+    for(int i = 1; i < cCount; i++)
+    {
+        for(int j = 1; j < rCount; j++)
+        {
+            int temp = arr[i][j];
+
+            if(alreadyExist(tmpArr, tmpArrSize, temp))
+                {
+                 continue;
+                }
+                else
+                {
+                tmpArr[counter] = temp;
+                counter++;
+                }
+        }
+    }
+
+
+    answer->Caption = IntToStr(counter);
+}
+//---------------------------------------------------------------------------
+
+
+bool TForm1::alreadyExist(int arr[], int arrSize, int value)
+{
+
+       for(int i = 0; i < arrSize; i++)
+       {
+            if(arr[i] == value)
+            {
+                return true;
+            }
+            else
+            {
+                continue;
+            }
+       }
+       
+       return false;
+}
+void __fastcall TForm1::fillZeroClick(TObject *Sender)
+{
+    int rCount, cCount;
+    rCount = matrix->RowCount;
+    cCount = matrix->ColCount;
+
+    for(int i = 1; i < cCount; i++)
+    {
+        for(int j = 1; j < rCount; j++)
+        {
+            matrix->Cells[i][j] = 0;
+        }
+    }
 }
 //---------------------------------------------------------------------------
 

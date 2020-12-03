@@ -19,10 +19,17 @@ __published:	// IDE-managed Components
         TStringGrid *matrix;
         TButton *changeSize;
         TButton *fillMatrix;
+        TLabel *Label3;
+        TButton *getAnswer;
+        TButton *fillZero;
+        TLabel *answer;
         void __fastcall changeSizeClick(TObject *Sender);
         void __fastcall fillMatrixClick(TObject *Sender);
+        void __fastcall getAnswerClick(TObject *Sender);
+        void __fastcall fillZeroClick(TObject *Sender);
 private:
-        bool isStringGridFilled(int colCount, int rowCount);	// User declarations
+        bool isStringGridFilled(int colCount, int rowCount);
+        bool alreadyExist(int arr[],int  arrSize, int value);	// User declarations
 public:		// User declarations
         __fastcall TForm1(TComponent* Owner);
 };
