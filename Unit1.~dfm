@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 139
-  Top = 193
+  Left = 180
+  Top = 190
   Width = 789
   Height = 312
   Caption = 'Form1'
@@ -37,7 +37,7 @@ object Form1: TForm1
   object answer: TLabel
     Left = 648
     Top = 72
-    Width = 89
+    Width = 6
     Height = 24
   end
   object nSize: TEdit

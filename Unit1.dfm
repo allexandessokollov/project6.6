@@ -37,7 +37,7 @@ object Form1: TForm1
   object answer: TLabel
     Left = 648
     Top = 72
-    Width = 89
+    Width = 6
     Height = 24
   end
   object nSize: TEdit

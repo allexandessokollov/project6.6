@@ -9,7 +9,9 @@
 #pragma resource "*.dfm"
 TForm1 *Form1;
 
-const int maxMatrixSize = 8;
+const int maxMatrixSize = 8;/// it's actually 7x7
+int const MAX_RANDOM_VALUE = 25;
+int const MIN_RANDOM_VALUE = -25;
 
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
@@ -64,11 +66,11 @@ bool TForm1::isStringGridFilled(int colCount, int rowCount)
         min = colCount;
     }
 
-    for(int i = 0; i < max; i++)
+    for(int i = 1; i < max; i++)
     {
-        for(int j = 0; j < min; j++)
+        for(int j = 1; j < min; j++)
         {
-            AnsiString str = matrix->Cells[i][j];
+            AnsiString str = matrix->Cells[j][i];
             if(str == "")
             {
                 return false;
@@ -78,6 +80,7 @@ bool TForm1::isStringGridFilled(int colCount, int rowCount)
 
     return ret;
 }
+
 void __fastcall TForm1::changeSizeClick(TObject *Sender)
 {
     AnsiString nValue = nSize->Text;
@@ -139,7 +142,7 @@ void __fastcall TForm1::fillMatrixClick(TObject *Sender)
     {
         for(int j = 1; j < rCount; j++)
         {
-            matrix->Cells[i][j] = random(50) - 20;
+            matrix->Cells[i][j] = random(MAX_RANDOM_VALUE - MIN_RANDOM_VALUE) + MIN_RANDOM_VALUE;
         }
     }
 
@@ -175,7 +178,8 @@ void __fastcall TForm1::getAnswerClick(TObject *Sender)
 
     tmpArrSize = (rCount - 1) * (cCount - 1);
 
-    int *tmpArr = new int[tmpArrSize];
+    int *tmpArr = new int[tmpArrSize],
+    toInitialize = -9999;
 
     int **arr = new int*[cCount];
     for(int i = 0; i < cCount; i++)
@@ -189,9 +193,12 @@ void __fastcall TForm1::getAnswerClick(TObject *Sender)
         {
             int temp = StrToInt(matrix->Cells[i][j]);
             arr[i][j] = temp;
+            tmpArr[counter] = toInitialize;
+            counter++;
         }
     }
 
+    counter = 0;
     for(int i = 1; i < cCount; i++)
     {
         for(int j = 1; j < rCount; j++)
